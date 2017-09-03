@@ -1,0 +1,28 @@
+<div class="caption">Sunshine is delicious, rain is refreshing, wind braces us up, snow is exhilarating; there is really no such thing as bad weather, only different kinds of good weather.</div>
+<div class="search">
+	<h4>Find todays weather for your city!</h4>
+	<input class="search--input" #cityName type="text" placeholder="Your city name" />
+	<button class="search--button"  (click)="cityName.value && getWeather(cityName.value)">Search</button>
+</div>
+
+<div *ngIf="weather_data" class="weather">
+    <div class="weather--error" ngif="this.msg">{{this.msg}}</div>
+    <div class="weather--row">
+    	<div class="weather--column">{{weather_data.name}} 
+    		<img src='{{"http://openweathermap.org/images/flags/" + weather_data.sys.country + ".png" | lowercase}}' />
+    	</div>
+    	<div class="weather--column temperature"> {{temperature | round }} °С</div>
+    	<div class="weather--column">
+    		<img src='{{"http://openweathermap.org/img/w/" + weather_data.weather[0].icon + ".png" | lowercase}}' />
+    	</div>
+    </div>
+
+    <div class="weather--row">
+    	<div class="weather--column">{{weather_data.weather[0].main}}: {{ weather_data.weather[0].description}}</div>
+    	<div class="weather--column"> Wind  {{weather_data.wind.speed}} m/s</div><div class="weather--column"> Clouds  {{weather_data.clouds.all}} %</div>
+    	<div class="weather--column">Geo coords :
+    		<a href='{{"http://openweathermap.org/weathermap?zoom=12&lat=" + weather_data.coord.lat +"&lon=" + weather_data.coord.lon}}' target="_blank">[ {{ weather_data.coord.lat }} , {{ weather_data.coord.lon }} ]</a>
+    	</div>
+    </div>
+    
+</div>
